@@ -1,0 +1,73 @@
+---
+- hosts: localhost
+  vars:
+    VERSIONS:
+        "terraform":         "0.6.15"
+        "terraform_ansible": "0.0.2"
+  # roles:
+  #   - role: migibert.terraform
+  #     terraform_version: "{{ VERSIONS.terraform }}"
+  tasks:
+    #- name: add PPAs
+    #  apt_repository:
+    #    repo='ppa:...'
+
+    - name: distrib upgrade
+      apk:
+        update_cache: yes
+        upgrade: yes
+        state: latest
+
+    - name: add packages
+      apk:
+        name: "{{ item }}"
+        upgrade: yes
+      with_items:
+        - wget
+        - unzip
+        - bash
+
+    - name: download Terraform
+      get_url:
+        url: "https://releases.hashicorp.com/terraform/{{ VERSIONS.terraform }}/terraform_{{ VERSIONS.terraform }}_linux_amd64.zip"
+        dest: "/tmp/terraform.zip"
+
+    - name: extract Terraform
+      unarchive:
+        src:  /tmp/terraform.zip
+        dest: /usr/local/bin
+        copy: no
+
+    - name: download Ansible provisioner for Terraform
+      get_url:
+        url: "https://github.com/jonmorehouse/terraform-provisioner-ansible/releases/download/{{ VERSIONS.terraform_ansible }}/terraform-provisioner-ansible"
+        dest: "/usr/local/bin"
+        mode: "a+rx"
+
+- hosts: localhost
+  tasks:
+    #- apt:
+    #    autoremove: yes
+    #    purge: yes
+    - apk:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - build-dependencies
+    - file:
+        path: "{{ item }}"
+        state: absent
+      with_fileglob:
+        - "/tmp/terraform.zip"
+        - "/var/cache/apk/*"
+
+
+    # echo "===> Adding Python runtime..."
+    # apk --update add python py-pip openssl ca-certificates
+    # apk --update add --virtual build-dependencies python-dev build-base
+    # pip install --upgrade pip
+    # \
+    # \
+    # echo "===> Installing Ansible..."
+    # pip install ansible
+    # \
