@@ -1,0 +1,34 @@
+---
+# ##############################################################################################
+#
+- name: "Ansible: contrib: mkdir tmp"
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ path_tmp_ansible }}"
+    - "{{ path_share_ansible }}"
+
+- name: "Ansible: contrib: download and extract"
+  unarchive:
+    src:  "https://github.com/ansible/ansible/archive/{{ VERSIONS.ansible_contrib }}.zip"
+    dest: "{{ path_tmp_ansible }}"
+    copy: no
+
+# - command: find .
+#   args:
+#     chdir: "{{ path_tmp_ansible }}"
+#   register: debug_ls_result
+# - debug: msg={{ debug_ls_result }}
+
+- name: "Ansible: contribs: copy"
+  command: mv {{ path_tmp_ansible }}/ansible-{{ VERSIONS.ansible_contrib }}/contrib {{ path_share_ansible }}/contrib
+
+# ##############################################################################################
+#
+- name: "Ansible: dynamic inventory for Terraform: download and extract"
+  unarchive:
+    src: "https://github.com/adammck/terraform-inventory/releases/download/v{{ VERSIONS.ansible_inv_terraform }}/terraform-inventory_v{{ VERSIONS.ansible_inv_terraform }}_linux_amd64.zip"
+    dest: "{{ path_share_ansible }}"
+    mode: "a+rx"
+    copy: no

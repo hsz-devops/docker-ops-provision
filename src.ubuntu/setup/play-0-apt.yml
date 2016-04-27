@@ -1,0 +1,38 @@
+---
+
+#- name: add PPAs
+#  apt_repository:
+#    repo='ppa:...'
+
+# it's not a good practice to upgrade everything
+# we might even end up upgrading ansible itself
+#
+# - name: distrib upgrade
+#   apt:
+#     upgrade: dist
+#     install_recommends: no
+#     dpkg_options: "force-confdef,force-confold"
+#     update_cache: yes
+#     cache_valid_time: 14400
+
+- name: add packages (minimal)
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 14400
+    install_recommends: no
+  with_flattened:
+    - [ python-pip ]
+
+- name: "pip upgrade"
+  command: pip install --upgrade pip
+
+- name: add packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 14400
+  with_flattened:
+    - [ curl, wget, unzip, bash ]
+    - "{{ os_add_packages }}"
+

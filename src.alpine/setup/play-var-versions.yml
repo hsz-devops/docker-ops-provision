@@ -1,0 +1,7 @@
+---
+VERSIONS:
+  "ansible_contrib":              "stable-2.1"
+  "ansible_inv_terraform":        "0.6.1"
+
+  "terraform":                    "0.6.15"
+  "terraform_provision_ansible":  "0.0.2"

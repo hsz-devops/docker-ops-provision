@@ -12,3 +12,6 @@ tbd:
 - docker-compose
 - docker-machine
 - swarm
+
+https://blog.replicated.com/2016/02/05/refactoring-a-dockerfile-for-image-size/
+

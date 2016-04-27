@@ -1,0 +1,35 @@
+---
+
+#- name: add PPAs
+#  apt_repository:
+#    repo='ppa:...'
+
+# it's not a good practice to upgrade everything
+# we might even end up upgrading ansible itself
+#
+# - name: distrib upgrade
+#   apk:
+#     upgrade: yes
+#     update_cache: yes
+
+# it looks like ansible's apk module is not working correctly, and does not support --virtual
+# it seems direct apk seems to work better
+
+- name: "pip install"
+  command: apk --update add py-pip
+
+- name: "pip upgrade"
+  command: pip install --upgrade pip
+
+- name: "install dev packages"
+  command: apk --update add --virtual build-dependencies python-dev build-base
+
+- name: add packages
+  apk:
+    name: "{{ item }}"
+    update_cache: yes
+    state: latest
+  with_flattened:
+    - [ curl, wget, unzip, bash ]
+    - "{{ os_add_packages }}"
+

@@ -1,0 +1,17 @@
+---
+# ##############################################################################################
+#
+- name: "Terraform: download and extract"
+  unarchive:
+    src:  "https://releases.hashicorp.com/terraform/{{ VERSIONS.terraform }}/terraform_{{ VERSIONS.terraform }}_linux_amd64.zip"
+    dest: "{{ path_tf_bin }}"
+    copy: no
+
+# ##############################################################################################
+#
+- name: "Terraform: download Ansible provisioner"
+  get_url:
+    url: "https://github.com/jonmorehouse/terraform-provisioner-ansible/releases/download/{{ VERSIONS.terraform_provision_ansible }}/terraform-provisioner-ansible"
+    dest: "{{ path_tf_bin }}"
+    mode: "a+rx"
+

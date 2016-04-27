@@ -1,18 +1,38 @@
 FROM williamyeh/ansible:alpine3-onbuild
+# "ONBUILD version" because:
+# - updates some SSL stuff everytime is used in another image
+# - copies . to /tmp
 
+MAINTAINER HighSkillz <webdev@highskillz.com>
 
-ENV  PLAYBOOK     install-plays.yml
-#ENV  REQUIREMENTS install-reqs.yml
-#ENV  INVENTORY    install-inv.ini
-#ENV  INVENTORY    "/etc/ansible/hosts"
+# ===========================================================================
+#COPY ../files/.terraformrc  /root/
+#COPY ../_web_cache/ /tmp/web.cache
 
-COPY ./install-*.* /tmp/
+# ===========================================================================
+# Relying on the default behavior or the FROM image (copy everything to /tmp)
+# Either we set WORKDIR to /tmp/setup
+# or
+# We set env variables to the full path name
+#
+# Choosing the 2nd option for better control
 
-WORKDIR /tmp
-RUN ansible-playbook-wrapper
+# Also, setting up the variables in RUN instead of build-wide, because we just
+# need them for the initial setup
 
-VOLUME ["/data"]
+# ===========================================================================
+# Run ansible to configure this image and then cleanup /tmp
+#
+RUN PLAYBOOK=./setup/playbook.yml \
+    REQUIREMENTS=./setup/requirements.yml \
+        ansible-playbook-wrapper && \
+    rm -rf /tmp/
+
+# ===========================================================================
+# Run ansible to configure this image
+VOLUME [ "/data", "/var/log", "/etc/ansible" ]
 WORKDIR /data
 
 #https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
+CMD ansible --version && terraform --version
