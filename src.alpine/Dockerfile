@@ -1,8 +1,4 @@
-FROM williamyeh/ansible:alpine3-onbuild
-# "ONBUILD version" because:
-# - updates some SSL stuff everytime is used in another image
-# - copies . to /tmp
-
+FROM highskillz/ops-base:alpine
 MAINTAINER HighSkillz <webdev@highskillz.com>
 
 # ===========================================================================

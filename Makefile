@@ -1,3 +1,4 @@
+DH_ID_base=highskillz/ops-base
 DH_ID=highskillz/ops-provision
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
@@ -5,42 +6,57 @@ TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 #BUILD_CACHE=--no-cache
 # --force-rm
 
+default:
+
 # --------------------------------------------------------------------------
 build: build-ubuntu
 
-build-all: build-alpine build-ubuntu
+all: build-alpine build-ubuntu
 
 build-alpine:
 	cd src.alpine ;\
-	docker build $(BUILD_CACHE) -t $(DH_ID):alpine             .
+	docker build $(BUILD_CACHE) -f Dockerfile.base -t $(DH_ID_base):alpine . ;\
+	docker build $(BUILD_CACHE) -f Dockerfile      -t $(DH_ID):alpine      . ;\
 
 build-ubuntu:
 	cd src.ubuntu ;\
-	docker build $(BUILD_CACHE) -t $(DH_ID):ubuntu -t $(DH_ID) .
+	docker build $(BUILD_CACHE) -f Dockerfile.base -t $(DH_ID_base):ubuntu . ;\
+	docker build $(BUILD_CACHE) -f Dockerfile      -t $(DH_ID):ubuntu      . ;\
+
 
 # --------------------------------------------------------------------------
-pull:
-	docker pull $(DH_ID)
+d-pull:
+	docker pull $(DH_ID_base):alpine
+	docker pull $(DH_ID_base):ubuntu
+	docker pull $(DH_ID):alpine
+	docker pull $(DH_ID):ubuntu
 
-push:
-	docker push $(DH_ID)
+d-push:
+	docker push $(DH_ID_base):alpine
+	docker push $(DH_ID_base):ubuntu
+	docker push $(DH_ID):alpine
+	docker push $(DH_ID):ubuntu
 
 # --------------------------------------------------------------------------
-docker-rmi:
-	docker rmi $(DH_ID)
-
-docker-rmi--purge-in-dev:
-	#eval $(docker-machine env)
-	docker rmi $(DH_ID)                              || true
-	docker rm `docker ps -a -q`                      || true
+clean-junk:
+	docker rm  `docker ps -aq -f status=exited`      || true
 	docker rmi `docker images -q -f dangling=true`   || true
-	docker ps -a
-	docker volume ls
+
+clean-images:
+	docker rmi $(DH_ID_base):alpine  $(DH_ID):alpine         || true
+	docker rmi $(DH_ID_base):ubuntu  $(DH_ID):ubuntu         || true
+
+d-rmi: clean-images clean-junk
+
+# --------------------------------------------------------------------------
+list:
 	docker images
+	docker volume ls
+	docker ps -a
 
 # --------------------------------------------------------------------------
 shell:
-	docker run -it --rm $(DH_ID) bash
+	docker run -it --rm $(DH_ID):ubuntu bash
 
 # --------------------------------------------------------------------------
 webcache-copy: webcache-copy-ubuntu webcache-copy-alpine
@@ -50,4 +66,3 @@ webcache-copy-ubuntu:
 
 webcache-copy-alpine:
 	cp -a ./_web_cache ./src.alpine
-

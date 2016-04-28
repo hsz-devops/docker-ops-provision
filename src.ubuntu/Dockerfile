@@ -1,8 +1,4 @@
-FROM williamyeh/ansible:ubuntu14.04-onbuild
-# "ONBUILD version" because:
-# - updates some SSL stuff everytime is used in another image
-# - copies . to /tmp
-
+FROM highskillz/ops-base:ubuntu
 MAINTAINER HighSkillz <webdev@highskillz.com>
 
 # ===========================================================================
