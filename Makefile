@@ -25,22 +25,31 @@ build-ubuntu:
 
 
 # --------------------------------------------------------------------------
-d-pull:
+pull: pull-alpine pull-ubuntu
+
+pull-alpine:
 	docker pull $(DH_ID_base):alpine
-	docker pull $(DH_ID_base):ubuntu
 	docker pull $(DH_ID):alpine
+
+pull-ubuntu:
+	docker pull $(DH_ID_base):ubuntu
 	docker pull $(DH_ID):ubuntu
 
-d-push:
+push: push-alpine push-ubuntu
+
+push-alpine:
 	docker push $(DH_ID_base):alpine
-	docker push $(DH_ID_base):ubuntu
 	docker push $(DH_ID):alpine
+
+push-ubuntu:
+	docker push $(DH_ID_base):ubuntu
 	docker push $(DH_ID):ubuntu
 
 # --------------------------------------------------------------------------
 clean-junk:
 	docker rm  `docker ps -aq -f status=exited`      || true
 	docker rmi `docker images -q -f dangling=true`   || true
+	docker volume rm `docker volume ls -qf dangling=true`   || true
 
 clean-images:
 	docker rmi $(DH_ID_base):alpine  $(DH_ID):alpine         || true
