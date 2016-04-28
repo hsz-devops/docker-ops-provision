@@ -6,3 +6,9 @@ FROM williamyeh/ansible:alpine3-onbuild
 MAINTAINER HighSkillz <webdev@highskillz.com>
 
 # this image is used only as a buffer from unwanted/unexpected outside changes
+
+# adding bash as it is needed more often than not
+RUN apk --update add \
+        bash \
+    && \
+    rm -rf /var/cache/apk/*
