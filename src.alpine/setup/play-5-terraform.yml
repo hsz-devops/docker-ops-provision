@@ -15,3 +15,11 @@
     dest: "{{ path_tf_bin }}"
     mode: "a+rx"
 
+# ##############################################################################################
+#
+- name: "Ansible: dynamic inventory for Terraform: download and extract"
+  unarchive:
+    src: "https://github.com/adammck/terraform-inventory/releases/download/v{{ VERSIONS.ansible_inv_terraform }}/terraform-inventory_v{{ VERSIONS.ansible_inv_terraform }}_linux_amd64.zip"
+    dest: "{{ path_share_ansible }}"
+    mode: "a+rx"
+    copy: no
