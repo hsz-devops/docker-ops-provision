@@ -14,7 +14,7 @@
     - play-packages.yml
 
   tasks:
-    - include: play-0-apt.yml
+    - include: play-0-apk.yml
     - include: play-3-ansible.yml
     - include: play-5-terraform.yml
     - include: play-9-cleanup.yml
