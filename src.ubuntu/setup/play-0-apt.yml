@@ -33,6 +33,6 @@
     update_cache: yes
     cache_valid_time: 14400
   with_flattened:
-    - [ curl, wget, unzip, bash, apt-transport-https ]
+    - [ nano, htop, curl, wget, unzip, bash, apt-transport-https ]
     - "{{ os_add_packages }}"
 

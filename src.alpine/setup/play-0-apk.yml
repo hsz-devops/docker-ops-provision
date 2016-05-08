@@ -30,6 +30,6 @@
     update_cache: yes
     state: latest
   with_flattened:
-    - [ curl, wget, unzip, bash ]
+    - [ nano, htop, curl, wget, unzip, bash ]
     - "{{ os_add_packages }}"
 

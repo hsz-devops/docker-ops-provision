@@ -3,6 +3,8 @@ os_add_packages:
 
   # because git should be everywhere
   - git
+  - cifs-utils
+  - nfs-utils
 
   # required for most of the dependencies
   # of the dynamic inventory scripts
