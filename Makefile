@@ -1,3 +1,5 @@
+# v1.2.1    2016-05-08     webmaster@highskillz.com
+
 DH_ID_base=highskillz/ops-base
 DH_ID=highskillz/ops-provision
 
@@ -7,6 +9,13 @@ TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 # --force-rm
 
 default:
+	@echo "Usage:"
+	@echo "    make all | build | build-alpine | build-ubuntu"
+	@echo "    make list"
+	@echo "    make pull | pull-alpine | pull-ubuntu"
+	@echo "    make clean-junk"
+	@echo "    make shell"
+
 
 # --------------------------------------------------------------------------
 build: build-ubuntu
@@ -67,11 +76,11 @@ list:
 shell:
 	docker run -it --rm $(DH_ID):ubuntu bash
 
-# --------------------------------------------------------------------------
-webcache-copy: webcache-copy-ubuntu webcache-copy-alpine
+# # --------------------------------------------------------------------------
+# webcache-copy: webcache-copy-ubuntu webcache-copy-alpine
 
-webcache-copy-ubuntu:
-	cp -a ./_web_cache ./src.ubuntu
+# webcache-copy-ubuntu:
+# 	cp -a ./_web_cache ./src.ubuntu
 
-webcache-copy-alpine:
-	cp -a ./_web_cache ./src.alpine
+# webcache-copy-alpine:
+# 	cp -a ./_web_cache ./src.alpine
