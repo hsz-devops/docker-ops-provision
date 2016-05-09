@@ -50,7 +50,7 @@ RUN \
     \
     echo "===> Removing APT stuff ..."  && \
     apt-get autoremove --purge -y && \
-    apt-get autoclean -y          && \
+    apt-get clean              -y && \
     rm -rf \
       "${HOME}/.cache" \
       /var/lib/apt/lists/*  && \
