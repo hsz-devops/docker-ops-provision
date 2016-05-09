@@ -1,7 +1,7 @@
 # adapted from [ williamyeh/ansible:ubuntu14.04-onbuild ]
 # "ONBUILD version" because:
 # - updates some SSL stuff everytime is used in another image
-# - copies . to /tmp
+# - copies . to /tmp/ops
 
 # pull base image
 FROM ubuntu:16.04
@@ -65,8 +65,8 @@ ONBUILD  RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
               echo "===> Updating TLS certificates..."         && \
               DEBIAN_FRONTEND=noninteractive apt-get install -y openssl ca-certificates
 
-ONBUILD  WORKDIR  /tmp
-ONBUILD  COPY  .  /tmp
+ONBUILD  COPY  .  /tmp/ops
+ONBUILD  WORKDIR  /tmp/ops
 ONBUILD  RUN  \
               echo "===> Diagnosis: host information..."  && \
               ansible -c local -m setup all
