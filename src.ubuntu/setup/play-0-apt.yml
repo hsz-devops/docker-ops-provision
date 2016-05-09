@@ -15,17 +15,21 @@
 #     update_cache: yes
 #     cache_valid_time: 14400
 
-- name: add packages (minimal)
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-    cache_valid_time: 14400
-    install_recommends: no
-  with_flattened:
-    - [ python-pip ]
+# - name: add packages (minimal)
+#   apt:
+#     name: "{{ item }}"
+#     update_cache: yes
+#     cache_valid_time: 14400
+#     install_recommends: no
+#     state: latest
+# with_flattened:
+#     - [ python3-pip, python-pip ]
 
-- name: "pip upgrade"
-  command: pip install --upgrade pip
+- name: "pip2 upgrade"
+  command: pip2 install --upgrade pip
+
+- name: "pip3 upgrade"
+  command: pip3 install --upgrade pip
 
 - name: add packages
   apt:
@@ -33,6 +37,34 @@
     update_cache: yes
     cache_valid_time: 14400
   with_flattened:
-    - [ nano, htop, curl, wget, unzip, bash, apt-transport-https ]
+    #- [ nano, curl, wget, unzip, bash, apt-transport-https ]
+    - [ htop ]
     - "{{ os_add_packages }}"
+
+- name: add packages (pip2)
+  pip:
+    name: "{{ item }}"
+    state: latest
+    executable: pip
+  with_flattened:
+    - []
+    - "{{ os_add_pip2 }}"
+
+- name: add packages (pip3)
+  pip:
+    name: "{{ item }}"
+    state: latest
+    executable: pip3
+  with_flattened:
+    - []
+    - "{{ os_add_pip3 }}"
+
+- name: add packages (npm)
+  npm:
+    name: "{{ item }}"
+    global: true
+    state: latest
+  with_flattened:
+    - [ gulp-cli, grunt-cli ]
+    - "{{ os_add_npm }}"
 

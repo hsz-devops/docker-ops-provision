@@ -5,5 +5,15 @@ os_add_packages:
   - git
   - cifs-utils
   - nfs-common
+  - awscli
+  - openstack
+
   # required for most of the dependencies
   # of the dynamic inventory scripts
+
+os_add_pip2: []
+
+os_add_pip3: []
+
+os_add_npm:
+  - azure-cli
