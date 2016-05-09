@@ -1,58 +1,29 @@
-# v1.2.1    2016-05-08     webmaster@highskillz.com
+# v1.2.2    2016-05-09     webmaster@highskillz.com
 
-DH_ID_base=highskillz/ops-base
-DH_ID=highskillz/ops-provision
+TAG_VERSION=160509b
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
-#BUILD_CACHE=--no-cache
-# --force-rm
+BUILD_CACHE=--no-cache --force-rm
 
-default:
-	@echo "Usage:"
-	@echo "    make all | build | build-alpine | build-ubuntu"
-	@echo "    make list"
-	@echo "    make pull | pull-alpine | pull-ubuntu"
-	@echo "    make clean-junk"
-	@echo "    make shell"
-
+include ./Makefile.base
+include ./Makefile.provis
 
 # --------------------------------------------------------------------------
 build: build-ubuntu
 
 all: build-alpine build-ubuntu
 
-build-alpine:
-	cd src.alpine ;\
-	docker build $(BUILD_CACHE) -f Dockerfile.base -t $(DH_ID_base):alpine . ;\
-	docker build $(BUILD_CACHE) -f Dockerfile      -t $(DH_ID):alpine      . ;\
+build-alpine: build-alpine-base build-alpine-provis
+build-ubuntu: build-ubuntu-base build-ubuntu-provis
 
-build-ubuntu:
-	cd src.ubuntu ;\
-	docker build $(BUILD_CACHE) -f Dockerfile.base -t $(DH_ID_base):ubuntu . ;\
-	docker build $(BUILD_CACHE) -f Dockerfile      -t $(DH_ID):ubuntu      . ;\
-
-
-# --------------------------------------------------------------------------
 pull: pull-alpine pull-ubuntu
-
-pull-alpine:
-	docker pull $(DH_ID_base):alpine
-	docker pull $(DH_ID):alpine
-
-pull-ubuntu:
-	docker pull $(DH_ID_base):ubuntu
-	docker pull $(DH_ID):ubuntu
+pull-alpine: pull-alpine-base  pull-alpine-provis
+pull-ubuntu: pull-ubuntu-base  pull-ubuntu-provis
 
 push: push-alpine push-ubuntu
-
-push-alpine:
-	docker push $(DH_ID_base):alpine
-	docker push $(DH_ID):alpine
-
-push-ubuntu:
-	docker push $(DH_ID_base):ubuntu
-	docker push $(DH_ID):ubuntu
+push-alpine: push-alpine-base  push-alpine-provis
+push-ubuntu: push-ubuntu-base  push-ubuntu-provis
 
 # --------------------------------------------------------------------------
 clean-junk:
@@ -74,7 +45,7 @@ list:
 
 # --------------------------------------------------------------------------
 shell:
-	docker run -it --rm $(DH_ID):ubuntu bash
+	docker run -it --rm $(DH_ID_provis):ubuntu bash
 
 # # --------------------------------------------------------------------------
 # webcache-copy: webcache-copy-ubuntu webcache-copy-alpine

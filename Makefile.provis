@@ -1,0 +1,49 @@
+# v1.2.2    2016-05-09     webmaster@highskillz.com
+
+DH_ID_provis=highskillz/ops-provision
+
+# --------------------------------------------------------------------------
+check-env-provis:
+	test -n "$(TAG_VERSION)"   # TAG_VERSION.provis
+	test -n "$(TIMESTAMP)"     # TIMESTAMP.provis
+
+# --------------------------------------------------------------------------
+build-provis: build-alpine-provis build-ubuntu-provis
+
+build-alpine-provis: check-env-provis
+	pushd src.alpine ;\
+	docker build $(BUILD_CACHE) -f Dockerfile.provis \
+			-t $(DH_ID_provis):alpine \
+			-t $(DH_ID_provis):alpine33 \
+			-t $(DH_ID_provis):alpine-${TAG_VERSION} \
+			-t $(DH_ID_provis):alpine33-${TAG_VERSION} \
+			. ;\
+	popd ;\
+
+build-ubuntu-provis: check-env-provis
+	pushd src.ubuntu ;\
+	docker build $(BUILD_CACHE) -f Dockerfile \
+			-t $(DH_ID_provis):ubuntu \
+			-t $(DH_ID_provis):ubuntu1604 \
+			-t $(DH_ID_provis):ubuntu-${TAG_VERSION} \
+			-t $(DH_ID_provis):ubuntu1604-${TAG_VERSION} \
+			. ;\
+	popd ;\
+
+# --------------------------------------------------------------------------
+pull-provis: pull-alpine-provis pull-ubuntu-provis
+
+pull-alpine-provis: check-env-provis
+	docker pull $(DH_ID_provis):alpine
+
+pull-ubuntu-provis: check-env-provis
+	docker pull $(DH_ID_provis):ubuntu
+
+# --------------------------------------------------------------------------
+push-provis: push-alpine-provis push-ubuntu-provis
+
+push-alpine-provis: check-env-provis
+	docker push $(DH_ID_provis):alpine
+
+push-ubuntu-provis: check-env-provis
+	docker push $(DH_ID_provis):ubuntu

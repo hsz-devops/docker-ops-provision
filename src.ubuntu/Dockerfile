@@ -1,4 +1,5 @@
-FROM highskillz/ops-base:ubuntu
+FROM highskillz/ops-base:ubuntu1604
+
 MAINTAINER HighSkillz <webdev@highskillz.com>
 
 # ===========================================================================
