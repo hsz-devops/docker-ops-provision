@@ -12,11 +12,10 @@ MAINTAINER HighSkillz <webdev@highskillz.com>
 #  version=
 #  description=
 
-# Not adding Ansible PPA because it doesn't (?yet?) support xenial
+# It seems Xenial already includes an updated version of Ansible (2.0.0). We can add the PPA when it starts supporting Xenial
 RUN \
     DEBIAN_FRONTEND=noninteractive  apt-get    update  && \
     DEBIAN_FRONTEND=noninteractive  apt-get -y install \
-          apt-utils \
           apt-transport-https \
           lsb-release \
     && \
@@ -50,9 +49,11 @@ RUN \
     \
     \
     echo "===> Removing APT stuff ..."  && \
-    apt-get autoremove --purge   && \
-    apt-get autoclean            && \
-    rm -rf /var/lib/apt/lists/*  && \
+    apt-get autoremove --purge -y && \
+    apt-get autoclean -y          && \
+    rm -rf \
+      "${HOME}/.cache" \
+      /var/lib/apt/lists/*  && \
     \
     \
     echo "===> Adding hosts for convenience..."  && \
