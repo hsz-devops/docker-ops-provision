@@ -6,14 +6,15 @@ os_add_packages:
   - cifs-utils
   - nfs-common
   - awscli
-  - openstack
+  #- openstack  # only for 16.04+
 
   # required for most of the dependencies
   # of the dynamic inventory scripts
 
 os_add_pip2: []
 
-os_add_pip3: []
+os_add_pip3:
+  - python-openstackclient
 
 os_add_npm:
   - azure-cli

@@ -21,13 +21,19 @@ build-alpine-base: check-env-base
 	popd ;\
 
 build-ubuntu-base: check-env-base
-	pushd src.ubuntu.base ;\
-	docker build $(BUILD_CACHE) -f Dockerfile \
+	pushd src.ubuntu.base && \
+	docker build $(BUILD_CACHE) -f Dockerfile.1404 \
 			-t $(DH_ID_base):ubuntu \
-			-t $(DH_ID_base):ubuntu1604 \
+			-t $(DH_ID_base):ubuntu1404 \
 			-t $(DH_ID_base):ubuntu-${TAG_VERSION} \
+			-t $(DH_ID_base):ubuntu1404-${TAG_VERSION} \
+			. \
+		&&\
+	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
+			-t $(DH_ID_base):ubuntu1604 \
 			-t $(DH_ID_base):ubuntu1604-${TAG_VERSION} \
-			. ;\
+			. \
+		&&\
 	popd ;\
 
 # --------------------------------------------------------------------------
@@ -37,7 +43,8 @@ pull-alpine-base: check-env-base
 	docker pull $(DH_ID_base):alpine
 
 pull-ubuntu-base:
-	docker pull $(DH_ID_base):ubuntu
+	docker pull $(DH_ID_base):ubuntu1404
+	docker pull $(DH_ID_base):ubuntu1604
 
 # --------------------------------------------------------------------------
 push-base: push-alpine-base push-ubuntu-base
@@ -46,4 +53,5 @@ push-alpine-base: check-env-base
 	docker push $(DH_ID_base):alpine
 
 push-ubuntu-base: check-env-base
-	docker push $(DH_ID_base):ubuntu
+	docker push $(DH_ID_base):ubuntu1404
+	docker push $(DH_ID_base):ubuntu1604

@@ -1,10 +1,10 @@
 # v1.2.2    2016-05-09     webmaster@highskillz.com
 
-TAG_VERSION=160509h
+TAG_VERSION=160510a
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
-BUILD_CACHE=--no-cache --force-rm
+#BUILD_CACHE=--no-cache --force-rm
 
 include ./Makefile.base
 include ./Makefile.provis
