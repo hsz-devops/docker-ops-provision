@@ -41,8 +41,10 @@ pull-base: pull-alpine-base pull-ubuntu-base
 
 pull-alpine-base: check-env-base
 	docker pull $(DH_ID_base):alpine
+	docker pull $(DH_ID_base):alpine33
 
 pull-ubuntu-base:
+	docker pull $(DH_ID_base):ubuntu
 	docker pull $(DH_ID_base):ubuntu1404
 	docker pull $(DH_ID_base):ubuntu1604
 
@@ -51,7 +53,18 @@ push-base: push-alpine-base push-ubuntu-base
 
 push-alpine-base: check-env-base
 	docker push $(DH_ID_base):alpine
+	docker push $(DH_ID_base):alpine33
+	docker push $(DH_ID_base):alpine-${TAG_VERSION}
+	docker push $(DH_ID_base):alpine33-${TAG_VERSION}
 
 push-ubuntu-base: check-env-base
+	docker push $(DH_ID_base):ubuntu
 	docker push $(DH_ID_base):ubuntu1404
 	docker push $(DH_ID_base):ubuntu1604
+	docker push $(DH_ID_base):ubuntu1404-${TAG_VERSION}
+	docker push $(DH_ID_base):ubuntu1604-${TAG_VERSION}
+	docker push $(DH_ID_base):ubuntu-${TAG_VERSION}
+	docker push $(DH_ID_base):ubuntu1404
+	docker push $(DH_ID_base):ubuntu1604
+	docker push $(DH_ID_base):ubuntu1404-${TAG_VERSION}
+	docker push $(DH_ID_base):ubuntu1604-${TAG_VERSION}
