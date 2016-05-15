@@ -11,8 +11,8 @@ check-env-base:
 build-base: build-alpine-base build-ubuntu-base
 
 build-alpine-base: check-env-base
-	pushd src.alpine ;\
-	docker build $(BUILD_CACHE) -f Dockerfile.base \
+	pushd src.alpine.base ;\
+	docker build $(BUILD_CACHE) -f Dockerfile \
 			-t $(DH_ID_base):alpine \
 			-t $(DH_ID_base):alpine33 \
 			-t $(DH_ID_base):alpine-${TAG_VERSION} \

@@ -12,7 +12,7 @@ build-provis: build-alpine-provis build-ubuntu-provis
 
 build-alpine-provis: check-env-provis
 	pushd src.alpine ;\
-	docker build $(BUILD_CACHE) -f Dockerfile.provis \
+	docker build $(BUILD_CACHE) -f Dockerfile \
 			-t $(DH_ID_provis):alpine \
 			-t $(DH_ID_provis):alpine33 \
 			-t $(DH_ID_provis):alpine-${TAG_VERSION} \

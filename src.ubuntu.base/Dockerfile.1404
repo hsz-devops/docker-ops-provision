@@ -22,36 +22,54 @@ RUN \
           apt-transport-https \
           lsb-release \
     && \
-    DEBIAN_FRONTEND=noninteractive  apt-get -y dist-upgrade && \
-    DEBIAN_FRONTEND=noninteractive  apt-get -y install  \
-          bash \
-          less \
-          nano \
-          \
-          curl \
-          wget \
-          \
-          unzip \
-          \
-          python \
-          python-pip \
-          python3 \
-          python3-pip \
-          \
-          golang \
+    echo "===> Updating TLS certificates..."         && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            openssl \
+	    ca-certificates \
     && \
-    pip  install --upgrade pip wheel setuptools && \
-    pip3 install --upgrade pip wheel setuptools && \
     \
+    echo "===> Upgrading distribution..."  && \
+    DEBIAN_FRONTEND=noninteractive  apt-get -y dist-upgrade && \
+    \
+    echo "===> Adding Python runtime..."  && \
+    DEBIAN_FRONTEND=noninteractive  apt-get -y install  \
+            python  python-pip \
+            python3 python3-pip \
+    && \
+    echo "===> Adding usefull packages for devops shell-works..."  && \
+    DEBIAN_FRONTEND=noninteractive  apt-get -y install  \
+            bash \
+            less \
+            nano \
+            \
+            curl \
+            wget \
+            \
+            unzip \
+            \
+        && \
+    echo "===> Configuring Python and PIP..."  && \
+    pip3 install --upgrade pip setuptools wheel && \
+    rm $(which pip) && \
+    pip2 install --upgrade pip setuptools wheel && \
+    echo Making sure pip is set to python2 && \
+    pip --version | grep "python 2\."  && \
+    \
+    echo "===> Installing NodeJS..."  && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     DEBIAN_FRONTEND=noninteractive  apt-get -y install  \
           nodejs \
     && \
+    echo "===> Adding GO ..."  && \
+    DEBIAN_FRONTEND=noninteractive  apt-get -y install  \
+            golang \
+    && \
+    \
     echo "===> Installing Ansible..."  && \
     DEBIAN_FRONTEND=noninteractive  apt-get install -y ansible  && \
     \
     \
-    echo "===> Removing APT stuff ..."  && \
+    echo "===> Cleaning up ..."  && \
     apt-get autoremove --purge -y && \
     apt-get clean              -y && \
     rm -rf \
@@ -61,12 +79,14 @@ RUN \
     \
     \
     echo "===> Adding hosts for convenience..."  && \
+    mkdir -p /etc/ansible                        && \
     echo 'localhost' > /etc/ansible/hosts
 
 
 COPY ansible-playbook-wrapper /usr/local/bin/
 
-ONBUILD  RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
+ONBUILD  RUN  \
+              DEBIAN_FRONTEND=noninteractive  apt-get update   && \
               echo "===> Updating TLS certificates..."         && \
               DEBIAN_FRONTEND=noninteractive apt-get install -y openssl ca-certificates
 

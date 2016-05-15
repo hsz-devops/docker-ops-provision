@@ -3,11 +3,11 @@ MAINTAINER HighSkillz <webdev@highskillz.com>
 
 # ===========================================================================
 #COPY ../files/.terraformrc  /root/
-#COPY ../_web_cache/ /tmp/web.cache
+#COPY ../_web_cache/ /tmp/ops/web.cache
 
 # ===========================================================================
-# Relying on the default behavior or the FROM image (copy everything to /tmp)
-# Either we set WORKDIR to /tmp/setup
+# Relying on the default behavior or the FROM image (copy everything to /tmp/ops)
+# Either we set WORKDIR to /tmp/ops/setup
 # or
 # We set env variables to the full path name
 #
@@ -17,12 +17,12 @@ MAINTAINER HighSkillz <webdev@highskillz.com>
 # need them for the initial setup
 
 # ===========================================================================
-# Run ansible to configure this image and then cleanup /tmp
+# Run ansible to configure this image and then cleanup /tmp/ops
 #
 RUN PLAYBOOK=./setup/playbook.yml \
     REQUIREMENTS=./setup/requirements.yml \
         ansible-playbook-wrapper && \
-    rm -rf /tmp/
+    rm -rf /tmp/ops
 
 # ===========================================================================
 # Run ansible to configure this image

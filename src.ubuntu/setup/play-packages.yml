@@ -6,7 +6,6 @@ os_add_packages:
   - cifs-utils
   - nfs-common
   - awscli
-  #- openstack  # only for 16.04+
 
   # required for most of the dependencies
   # of the dynamic inventory scripts

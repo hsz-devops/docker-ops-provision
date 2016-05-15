@@ -25,31 +25,35 @@
 # with_flattened:
 #     - [ python3-pip, python-pip ]
 
+# ----------------------------------------------------------------------------------------
+
 - name: "pip2 upgrade"
-  command: pip2 install --upgrade pip
+  command: pip2 install --upgrade pip wheel setuptools
 
 - name: "pip3 upgrade"
-  command: pip3 install --upgrade pip
+  command: pip3 install --upgrade pip wheel setuptools
 
+# ----------------------------------------------------------------------------------------
 - name: add packages
   apt:
     name: "{{ item }}"
     update_cache: yes
     cache_valid_time: 14400
   with_flattened:
-    #- [ nano, curl, wget, unzip, bash, apt-transport-https ]
     - [ htop ]
     - "{{ os_add_packages }}"
 
+# ----------------------------------------------------------------------------------------
 - name: add packages (pip2)
   pip:
     name: "{{ item }}"
     state: latest
-    executable: pip
+    executable: pip2
   with_flattened:
     - []
     - "{{ os_add_pip2 }}"
 
+# ----------------------------------------------------------------------------------------
 - name: add packages (pip3)
   pip:
     name: "{{ item }}"
@@ -59,6 +63,7 @@
     - []
     - "{{ os_add_pip3 }}"
 
+# ----------------------------------------------------------------------------------------
 - name: add packages (npm)
   npm:
     name: "{{ item }}"

@@ -23,3 +23,6 @@
     dest: "{{ path_share_ansible }}"
     mode: "a+rx"
     copy: no
+
+# todo
+# - add https://github.com/CiscoCloud/terraform.py

@@ -15,21 +15,57 @@
 # it looks like ansible's apk module is not working correctly, and does not support --virtual
 # it seems direct apk seems to work better
 
-- name: "pip install"
-  command: apk --update add py-pip
+# ----------------------------------------------------------------------------------------
+- name: "pip2 upgrade"
+  command: pip2 install --upgrade pip wheel setuptools cffi
 
-- name: "pip upgrade"
-  command: pip install --upgrade pip
+- name: "pip3 upgrade"
+  command: pip3 install --upgrade pip wheel setuptools cffi
 
+# ----------------------------------------------------------------------------------------
 - name: "install dev packages"
-  command: apk --update add --virtual build-dependencies python-dev build-base
+  command: apk --update add \
+    --virtual build-dependencies \
+          python-dev \
+          python3-dev \
+          openssl-dev \
+          build-base  \
+          libffi-dev \
 
+# ----------------------------------------------------------------------------------------
 - name: add packages
-  apk:
+  command: apk --update add {{ item }}
+  with_flattened:
+    - [ htop ]
+    - "{{ os_add_packages }}"
+
+# ----------------------------------------------------------------------------------------
+- name: add packages (pip2)
+  pip:
     name: "{{ item }}"
-    update_cache: yes
+    state: latest
+    executable: pip2
+  with_flattened:
+    - []
+    - "{{ os_add_pip2 }}"
+
+# ----------------------------------------------------------------------------------------
+- name: add packages (pip3)
+  pip:
+    name: "{{ item }}"
+    state: latest
+    executable: pip3
+  with_flattened:
+    - []
+    - "{{ os_add_pip3 }}"
+
+# ----------------------------------------------------------------------------------------
+- name: add packages (npm)
+  npm:
+    name: "{{ item }}"
+    global: true
     state: latest
   with_flattened:
-    - [ nano, htop, curl, wget, unzip, bash ]
-    - "{{ os_add_packages }}"
+    - [ gulp-cli, grunt-cli ]
+    - "{{ os_add_npm }}"
 
