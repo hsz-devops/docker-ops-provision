@@ -1,4 +1,4 @@
-# v1.2.2    2016-05-09     webmaster@highskillz.com
+# v1.3.0    2016-06-08     webmaster@highskillz.com
 
 DH_ID_provis=highskillz/ops-provision
 
@@ -14,9 +14,9 @@ build-alpine-provis: check-env-provis
 	pushd src.alpine ;\
 	docker build $(BUILD_CACHE) -f Dockerfile \
 			-t $(DH_ID_provis):alpine \
-			-t $(DH_ID_provis):alpine33 \
+			-t $(DH_ID_provis):alpine34 \
 			-t $(DH_ID_provis):alpine-${TAG_VERSION} \
-			-t $(DH_ID_provis):alpine33-${TAG_VERSION} \
+			-t $(DH_ID_provis):alpine34-${TAG_VERSION} \
 			. ;\
 	popd ;\
 

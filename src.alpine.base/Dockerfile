@@ -4,7 +4,7 @@
 # - copies . to /tmp/ops
 
 # pull base image
-FROM alpine:3.3
+FROM alpine:3.4
 
 MAINTAINER HighSkillz <webdev@highskillz.com>
 
@@ -32,6 +32,8 @@ RUN \
         && \
     echo "===> Adding usefull packages for devops shell-works..."  && \
     apk --update add \
+            openssh-client \
+            \
             bash \
             less \
             nano \

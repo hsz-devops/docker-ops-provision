@@ -1,4 +1,4 @@
-# v1.2.2    2016-05-09     webmaster@highskillz.com
+# v1.3.0    2016-06-08     webmaster@highskillz.com
 
 DH_ID_base=highskillz/ops-base
 
@@ -14,9 +14,9 @@ build-alpine-base: check-env-base
 	pushd src.alpine.base ;\
 	docker build $(BUILD_CACHE) -f Dockerfile \
 			-t $(DH_ID_base):alpine \
-			-t $(DH_ID_base):alpine33 \
+			-t $(DH_ID_base):alpine34 \
 			-t $(DH_ID_base):alpine-${TAG_VERSION} \
-			-t $(DH_ID_base):alpine33-${TAG_VERSION} \
+			-t $(DH_ID_base):alpine34-${TAG_VERSION} \
 			. ;\
 	popd ;\
 
@@ -41,7 +41,7 @@ pull-base: pull-alpine-base pull-ubuntu-base
 
 pull-alpine-base: check-env-base
 	docker pull $(DH_ID_base):alpine
-	docker pull $(DH_ID_base):alpine33
+	docker pull $(DH_ID_base):alpine34
 
 pull-ubuntu-base:
 	docker pull $(DH_ID_base):ubuntu
@@ -53,9 +53,9 @@ push-base: push-alpine-base push-ubuntu-base
 
 push-alpine-base: check-env-base
 	docker push $(DH_ID_base):alpine
-	docker push $(DH_ID_base):alpine33
+	docker push $(DH_ID_base):alpine34
 	docker push $(DH_ID_base):alpine-${TAG_VERSION}
-	docker push $(DH_ID_base):alpine33-${TAG_VERSION}
+	docker push $(DH_ID_base):alpine34-${TAG_VERSION}
 
 push-ubuntu-base: check-env-base
 	docker push $(DH_ID_base):ubuntu

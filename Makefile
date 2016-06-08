@@ -1,6 +1,6 @@
-# v1.3.1    2016-05-15     webmaster@highskillz.com
+# v1.4.0    2016-06-08     webmaster@highskillz.com
 
-TAG_VERSION=160515a
+TAG_VERSION=160608a
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
@@ -30,13 +30,13 @@ push-ubuntu: push-ubuntu-base  push-ubuntu-provis
 
 # --------------------------------------------------------------------------
 clean-junk:
-	docker rm  `docker ps -aq -f status=exited`      || true
-	docker rmi `docker images -q -f dangling=true`   || true
-	docker volume rm `docker volume ls -qf dangling=true`   || true
+	docker rm        `docker ps -aq -f status=exited`      || true
+	docker rmi       `docker images -q -f dangling=true`   || true
+	docker volume rm `docker volume ls -qf dangling=true`  || true
 
 clean-images:
-	docker rmi $(DH_ID_base):alpine  $(DH_ID):alpine         || true
-	docker rmi $(DH_ID_base):ubuntu  $(DH_ID):ubuntu         || true
+	docker rmi $(DH_ID_base):alpine  $(DH_ID):alpine   || true
+	docker rmi $(DH_ID_base):ubuntu  $(DH_ID):ubuntu   || true
 
 d-rmi: clean-images clean-junk
 
