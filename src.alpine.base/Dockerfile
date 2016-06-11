@@ -21,8 +21,8 @@ MAINTAINER HighSkillz <webdev@highskillz.com>
 RUN \
     echo "===> Updating TLS certificates..."         && \
     apk --update add \
-            openssl \
             ca-certificates \
+            openssl \
     && \
     \
     echo "===> Adding Python runtime..."  && \
@@ -34,13 +34,13 @@ RUN \
     apk --update add \
             openssh-client \
             \
+            file \
             bash \
             less \
             nano \
             \
             curl \
             wget \
-            file \
             \
             zip \
             xz \
@@ -49,11 +49,8 @@ RUN \
             git \
             \
         && \
-    echo "===> Configuring Python and PIP..."  && \
-    echo OFF: python  -m ensurepip && \
-    echo OFF: python3 -m ensurepip && \
-    echo OFF: rm -r /usr/lib/python*/ensurepip && \
     \
+    echo "===> Configuring Python and PIP..."  && \
     pip3 install --upgrade pip setuptools wheel && \
     pip2 install --upgrade pip setuptools wheel && \
     rm $(which pip) && \
@@ -76,22 +73,21 @@ RUN \
     && \
     \
     echo "===> Installing Ansible..."  && \
-    echo OFF: pip2 install ansible > /dev/null && \
     apk --update add \
         ansible \
     && \
     \
-    echo "===> Installing NodeJS..."  && \
+    echo "===> Installing NodeJS 6.x..."  && \
     apk --update add \
             nodejs \
     && \
     \
-    echo "===> Adding Ruby ..."  && \
+    echo "===> Adding Ruby 2.x..."  && \
     apk --update add \
             ruby \
     && \
     \
-    echo "===> Removing packages ..."  && \
+    echo "===> Cleaning up ..."  && \
     echo OFF: apk del build-dependencies            && \
     rm -rf \
       "${HOME}/.cache" \
@@ -108,8 +104,8 @@ COPY ansible-playbook-wrapper /usr/local/bin/
 ONBUILD  RUN  \
               echo "===> Updating TLS certificates..."         && \
               apk --update add \
-              openssl \
               ca-certificates \
+              openssl \
               ;
 
 ONBUILD  COPY  .  /tmp/ops

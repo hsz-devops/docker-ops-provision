@@ -23,7 +23,7 @@ build-alpine-base: check-env-base
 	popd ;\
 
 build-ubuntu-base: check-env-base
-	pushd src.ubuntu.base && \
+	pushd src.ubuntu.base ; \
 	docker build $(BUILD_CACHE) -f Dockerfile.1404 \
 			-t $(DH_ID_base):ubuntu \
 			-t $(DH_ID_base):ubuntu1404 \
@@ -32,14 +32,12 @@ build-ubuntu-base: check-env-base
 			. \
 		| tee -a /tmp/docker-ops-provision.makefile.log \
 		;\
-		&&\
 	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
 			-t $(DH_ID_base):ubuntu1604 \
 			-t $(DH_ID_base):ubuntu1604-${TAG_VERSION} \
 			. \
 		| tee -a /tmp/docker-ops-provision.makefile.log \
 		;\
-		&&\
 	popd ;\
 
 # --------------------------------------------------------------------------

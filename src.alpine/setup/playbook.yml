@@ -3,7 +3,7 @@
   vars_files:
     - config.yml
   tasks:
-    - include: 0-apk.yml
+    - include: 0-packages.yml
 
 - hosts: localhost
   roles:
