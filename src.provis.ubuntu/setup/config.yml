@@ -1,19 +1,18 @@
 ---
 os_add_packages:
-
-  # because git should be everywhere
-  - git
-  - cifs-utils
-  - nfs-common
-  - awscli
-
-  # required for most of the dependencies
-  # of the dynamic inventory scripts
+  - htop
+  - mc
+#  - cifs-utils
+#  - nfs-utils
+#  - awscli
 
 os_add_pip2: []
 
 os_add_pip3:
-  - python-openstackclient
+  - awscli
+  #- python-openstackclient
 
 os_add_npm:
+  # - gulp-cli
+  # - grunt-cli
   - azure-cli

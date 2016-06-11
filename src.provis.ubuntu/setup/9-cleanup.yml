@@ -11,8 +11,6 @@
 - name: "final cleanup"
   shell: rm -rf "{{ item }}"
   with_items:
-    - "{{ path_tmp_ansible }}"
-    - "{{ path_tmp_webcache }}"
-    - "{{ ansible_env.HOME }}/.ansible"
+    #- "{{ ansible_env.HOME }}/.ansible"
     - "{{ ansible_env.HOME }}/.cache"
     - "/var/lib/apt/lists/*"

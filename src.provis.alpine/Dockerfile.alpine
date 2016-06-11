@@ -37,4 +37,6 @@ WORKDIR /data
 
 #https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/
 #CMD ["/bin/bash"]
-CMD ansible --version && terraform --version
+CMD \
+    ansible   --version             && \
+    terraform --version            | head -n 1

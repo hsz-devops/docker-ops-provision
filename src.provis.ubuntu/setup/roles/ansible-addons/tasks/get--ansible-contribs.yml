@@ -1,0 +1,30 @@
+---
+
+# # ------------------------------------------------------------------------------------------------
+# - name: "Ansible: contrib: download and extract"
+#   unarchive:
+#     src:  "https://github.com/ansible/ansible/archive/{{ addon_version.contrib }}.zip"
+#     dest: "{{ path_tmp_ansible }}"
+#     copy: no
+#
+# - name: "Ansible: contribs: copy"
+#   command: mv {{ path_tmp_ansible }}/ansible-{{ addon_version.contrib }}/contrib {{ path_share_ansible }}/contrib
+
+# Implementing workaround for bug in v2.1.0
+#
+# https://github.com/ansible/ansible/issues/13937
+#
+- name: "Ansible: contrib: download"
+  get_url:
+    url:  "https://github.com/ansible/ansible/archive/{{ addon_version.contrib }}.zip"
+    dest: "{{ path_tmp_ansible }}/ansible-contribs.zip"
+
+- name: "Ansible: contrib: unzip"
+  command: "unzip ansible-contribs.zip -d flat"
+  args:
+    chdir: "{{ path_tmp_ansible }}"
+
+- name: "Ansible: contrib: copy"
+  command: "mv ansible-{{ addon_version.contrib }}/contrib {{ path_share_ansible }}/contrib"
+  args:
+    chdir: "{{ path_tmp_ansible }}/flat"

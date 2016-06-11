@@ -1,19 +1,8 @@
 ---
-
-- name: "Ansible: contrib: mkdir folders 1"
-  file:
-    path: "{{ item }}"
-    state: directory
-  with_items:
-    - "{{ path_tmp_ansible }}"
-    - "{{ path_share_ansible }}"
-
-- command: find /usr/share/ansible
-  register: cmd_find
-- debug:
-    msg: "{{ cmd_find |to_yaml }}"
-
-- name: "Ansible: mkdir folders 2"
+# todo
+# - add https://github.com/CiscoCloud/terraform.py
+# ------------------------------------------------------------------------------------------------
+- name: "Terraform: mkdir folders 2"
   file:
     path: "{{ item.dest }}"
     state: directory
@@ -22,11 +11,9 @@
     - "{{ addon_installs.unarchive }}"
     - "{{ addon_installs.get_url }}"
 
-# ------------------------------------------------------------------------------------------------
-- include: ./get--ansible-contribs.yml
 
 # ------------------------------------------------------------------------------------------------
-- name: "Ansible: download addons (unarchive)"
+- name: "Terraform: download addons (unarchive)"
   unarchive:
     src:   "{{ item.src }}"
     dest:  "{{ item.dest }}"
@@ -34,10 +21,11 @@
     copy:  no
     # mode:  "{{ item.mode |default('a+rx') }}"
     # copy:  "{{ item.copy |default(no)     }}"
-  with_items: "{{ addon_installs.unarchive }}"
+  with_flattened:
+    - "{{ addon_installs.unarchive }}"
 
 # ------------------------------------------------------------------------------------------------
-- name: "Ansible: download addons (git)"
+- name: "Terraform: download addons (git)"
   git:
     repo:    "{{ item.repo }}"
     version: "{{ item.version }}"
@@ -48,7 +36,7 @@
     - "{{ addon_installs.git }}"
 
 # ------------------------------------------------------------------------------------------------
-- name: "Ansible: download addons (get_url)"
+- name: "Terraform: download addons (get_url)"
   get_url:
     url:    "{{ item.src }}"
     dest:   "{{ item.dest }}"
@@ -58,9 +46,3 @@
     - "{{ addon_installs.get_url }}"
 
 # ------------------------------------------------------------------------------------------------
-- name: "cleanup"
-  shell: rm -rf "{{ item }}"
-  with_items:
-    - "{{ path_tmp_ansible }}"
-    - "{{ path_tmp_webcache }}"
-

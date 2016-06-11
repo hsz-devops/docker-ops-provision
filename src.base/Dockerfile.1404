@@ -125,7 +125,7 @@ ONBUILD  RUN  \
 
 # default command: display Ansible version
 CMD \
-    ansible-playbook --version             && \
+    ansible-playbook --version | head -n 1 && \
     python  --version          | head -n 1 && \
     python3 --version          | head -n 1 && \
     pip  --version             | head -n 1 && \

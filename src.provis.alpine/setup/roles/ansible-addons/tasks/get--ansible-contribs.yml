@@ -1,0 +1,12 @@
+---
+
+# # ------------------------------------------------------------------------------------------------
+- name: "Ansible: contrib: download and extract"
+  unarchive:
+    src:  "https://github.com/ansible/ansible/archive/{{ addon_version.contrib }}.zip"
+    dest: "{{ path_tmp_ansible }}"
+    copy: no
+
+- name: "Ansible: contribs: copy"
+  command: mv {{ path_tmp_ansible }}/ansible-{{ addon_version.contrib }}/contrib {{ path_share_ansible }}/contrib
+
