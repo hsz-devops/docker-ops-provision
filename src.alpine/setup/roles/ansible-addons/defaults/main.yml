@@ -7,6 +7,7 @@ path_tmp_webcache:  "/tmp/ops/_web_cache"
 addon_version:
     "contrib":           "stable-2.1"      # https://github.com/ansible/ansible/tree/devel/contrib
   # "contrib":           "devel"           # https://github.com/ansible/ansible/tree/devel/contrib
+
     "inv_terraform":
         "adammck":       "0.6.1"           # https://github.com/adammck/terraform-inventory/releases
         "bandwidthcom":  "0.1.8"           # https://github.com/bandwidthcom/terraform-inventory
@@ -21,27 +22,32 @@ addon_installs:
       - name:    "CiscoCloud"
         repo:    "https://github.com/CiscoCloud/terraform.py"
         version: "{{ addon_version.inv_terraform.CiscoCloud }}"
-        dest:    "{{ path_share_ansible }}/inv_terraform/CiscoCloud"
+        dest:    "{{ path_share_ansible }}/inv/terraform--CiscoCloud"
 
       - name:    "lukaspustina"
         repo:    "https://github.com/lukaspustina/dynamic-inventory-for-ansible-with-openstack"
         version: "{{ addon_version.inv_openstack.lukaspustina }}"
-        dest:    "{{ path_share_ansible }}/inv_openstack/lukaspustina"
+        dest:    "{{ path_share_ansible }}/inv/openstack--lukaspustina"
 
       - name:   "gpaterno"
         repo:    "https://github.com/gpaterno/ansible_openstack"
         version: "{{ addon_version.inv_openstack.gpaterno }}"
-        dest:    "{{ path_share_ansible }}/inv_openstack/gpaterno"
+        dest:    "{{ path_share_ansible }}/inv/openstack--gpaterno"
 
     unarchive:
-      - name:   "bandwidthcom"
-        src:    "https://github.com/bandwidthcom/terraform-inventory/archive/{{ addon_version.inv_terraform.bandwidthcom }}.zip"
-        dest:   "{{ path_share_ansible }}/inv_terraform/bandwidthcom"
-
       - name:   "adammck"
         src:    "https://github.com/adammck/terraform-inventory/releases/download/v{{ addon_version.inv_terraform.adammck }}/terraform-inventory_v{{ addon_version.inv_terraform.adammck }}_linux_amd64.zip"
-        dest:   "{{ path_share_ansible }}/inv_terraform/adammck"
+        dest:   "{{ path_share_ansible }}/inv/terraform--adammck"
         mode:   "a+rx"
 
+    # ruby_gem:
+    #   - name:   "bandwidthcom"
+    #     gem:    "terraform_inventory"
+      # - name:   "bandwidthcom"
+      #   src:    "https://github.com/bandwidthcom/terraform-inventory/archive/{{ addon_version.inv_terraform.bandwidthcom }}.zip"
+      #   dest:   "{{ path_share_ansible }}/inv/terraform--bandwidthcom"
+
     get_url: []
+
+
 

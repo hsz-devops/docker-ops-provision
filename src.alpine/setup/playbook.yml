@@ -1,14 +1,14 @@
 ---
-# - hosts: localhost
-#   vars_files:
-#     - config.yml
-#   tasks:
-#     - include: 0-apk.yml
+- hosts: localhost
+  vars_files:
+    - config.yml
+  tasks:
+    - include: 0-apk.yml
 
 - hosts: localhost
   roles:
     - ansible-addons
-    # - terraform
+    - terraform
     - terraform-addons
 
 - hosts: localhost
