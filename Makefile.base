@@ -68,3 +68,7 @@ push-ubuntu-base: check-env-base
 	docker push $(DH_ID_base):ubuntu1604
 	docker push $(DH_ID_base):ubuntu1404-${TAG_VERSION}
 	docker push $(DH_ID_base):ubuntu1604-${TAG_VERSION}
+
+# --------------------------------------------------------------------------
+shell-alpine-base:
+	docker run -it --rm $(DH_ID_base):alpine bash

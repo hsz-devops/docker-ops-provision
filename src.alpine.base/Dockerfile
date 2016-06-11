@@ -41,49 +41,61 @@ RUN \
             curl \
             wget \
             \
-            unzip \
+            zip \
+            xz \
+            unrar \
+            \
+            git \
             \
         && \
     echo "===> Configuring Python and PIP..."  && \
-    python  -m ensurepip && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
+    echo OFF: python  -m ensurepip && \
+    echo OFF: python3 -m ensurepip && \
+    echo OFF: rm -r /usr/lib/python*/ensurepip && \
     \
     pip3 install --upgrade pip setuptools wheel && \
-    rm $(which pip) && \
     pip2 install --upgrade pip setuptools wheel && \
+    rm $(which pip) && \
+    ln -s $(which pip2) /usr/local/bin/pip && \
+    \
     echo Making sure pip is set to python2 && \
     pip --version | grep "python 2\."  && \
     \
-    apk --update add --virtual build-dependencies \
+    echo OFF: apk --update add --virtual build-dependencies \
             python-dev \
             python3-dev \
             openssl-dev \
             build-base  \
             libffi-dev \
         && \
-    pip2 install --upgrade cffi && \
-    pip3 install --upgrade cffi && \
+    echo OFF: pip2 install --upgrade cffi && \
+    echo OFF: pip3 install --upgrade cffi && \
+    apk --update add \
+        py-cffi \
+    && \
+    \
+    echo "===> Installing Ansible..."  && \
+    echo OFF: pip2 install ansible > /dev/null && \
+    apk --update add \
+        ansible \
+    && \
     \
     echo "===> Installing NodeJS..."  && \
     apk --update add \
             nodejs \
     && \
-    echo "===> Adding GO ..."  && \
+    \
+    echo "===> Adding Ruby ..."  && \
     apk --update add \
-            go \
+            ruby \
     && \
     \
-    echo "===> Installing Ansible..."  && \
-    pip2 install ansible                && \
-    \
-    \
     echo "===> Removing packages ..."  && \
-    apk del build-dependencies            && \
+    echo OFF: apk del build-dependencies            && \
     rm -rf \
       "${HOME}/.cache" \
-       /var/cache/apk/*               && \
-    \
+       /var/cache/apk/* \
+    && \
     \
     echo "===> Adding hosts for convenience..."  && \
     mkdir -p /etc/ansible                        && \
@@ -94,7 +106,10 @@ COPY ansible-playbook-wrapper /usr/local/bin/
 
 ONBUILD  RUN  \
               echo "===> Updating TLS certificates..."         && \
-              apk --update add openssl ca-certificates
+              apk --update add \
+              openssl \
+              ca-certificates \
+              ;
 
 ONBUILD  COPY  .  /tmp/ops
 ONBUILD  WORKDIR  /tmp/ops

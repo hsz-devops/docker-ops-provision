@@ -1,10 +1,8 @@
 ---
 os_add_packages:
-
-  # because git should be everywhere
-  - git
-  - cifs-utils
-  - nfs-utils
+  - htop
+#  - cifs-utils
+#  - nfs-utils
 #  - awscli
 
 os_add_pip2: []
@@ -14,4 +12,6 @@ os_add_pip3:
   #- python-openstackclient
 
 os_add_npm:
+  # - gulp-cli
+  # - grunt-cli
   - azure-cli

@@ -1,0 +1,9 @@
+---
+VERSIONS:
+  "ansible_contrib":              "stable-2.1"      # https://github.com/ansible/ansible/tree/devel/contrib
+  "ansible_inv_terraform":        "0.6.1"           # https://github.com/adammck/terraform-inventory/releases
+
+  "terraform":                    "0.6.16"          # https://github.com/hashicorp/terraform/releases
+  "terraform_provision_ansible":  "0.0.2"           # https://github.com/jonmorehouse/terraform-provisioner-ansible/releases
+
+# ansible-docker-machine        https://github.com/nathanleclaire/ansible-docker-machine/

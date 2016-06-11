@@ -1,11 +1,10 @@
 # v1.4.0    2016-06-08     webmaster@highskillz.com
 
-TAG_VERSION=160608a
+TAG_VERSION=160611c
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
 #BUILD_CACHE=--no-cache --force-rm
-# --force-rm
 
 default:
 
@@ -34,11 +33,11 @@ clean-junk:
 	docker rmi       `docker images -q -f dangling=true`   || true
 	docker volume rm `docker volume ls -qf dangling=true`  || true
 
-clean-images:
-	docker rmi $(DH_ID_base):alpine  $(DH_ID):alpine   || true
-	docker rmi $(DH_ID_base):ubuntu  $(DH_ID):ubuntu   || true
-
-d-rmi: clean-images clean-junk
+# clean-images:
+# 	docker rmi $(DH_ID_base):alpine  $(DH_ID):alpine   || true
+# 	docker rmi $(DH_ID_base):ubuntu  $(DH_ID):ubuntu   || true
+#
+# d-rmi: clean-images clean-junk
 
 # --------------------------------------------------------------------------
 list:
@@ -47,8 +46,6 @@ list:
 	docker ps -a
 
 # --------------------------------------------------------------------------
-shell:
-	docker run -it --rm $(DH_ID_provis):ubuntu bash
 
 # # --------------------------------------------------------------------------
 # webcache-copy: webcache-copy-ubuntu webcache-copy-alpine

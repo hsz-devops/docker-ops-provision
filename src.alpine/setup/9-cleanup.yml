@@ -1,0 +1,10 @@
+---
+# - command: apk del build-dependencies
+
+- name: "final cleanup"
+  shell: rm -rf "{{ item }}"
+  with_items:
+    #- "{{ ansible_env.HOME }}/.ansible"
+    - "{{ ansible_env.HOME }}/.cache"
+    - "/var/cache/apk/*"
+

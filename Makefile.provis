@@ -55,3 +55,7 @@ push-alpine-provis: check-env-provis
 push-ubuntu-provis: check-env-provis
 	docker push $(DH_ID_provis):ubuntu1404
 	docker push $(DH_ID_provis):ubuntu1604
+
+# --------------------------------------------------------------------------
+shell-alpine-provis:
+	docker run -it --rm $(DH_ID_provis):alpine bash

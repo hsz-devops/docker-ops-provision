@@ -1,0 +1,48 @@
+---
+# todo
+# - add https://github.com/CiscoCloud/terraform.py
+# ------------------------------------------------------------------------------------------------
+- name: "Terraform: mkdir folders 2"
+  file:
+    path: "{{ item.dest }}"
+    state: directory
+  with_flattened:
+    - "{{ addon_installs.git }}"
+    - "{{ addon_installs.unarchive }}"
+    - "{{ addon_installs.get_url }}"
+
+
+# ------------------------------------------------------------------------------------------------
+- name: "Terraform: download addons (unarchive)"
+  unarchive:
+    src:   "{{ item.src }}"
+    dest:  "{{ item.dest }}"
+    mode:  'a+rx'
+    copy:  no
+    # mode:  "{{ item.mode |default('a+rx') }}"
+    # copy:  "{{ item.copy |default(no)     }}"
+  with_flattened:
+    - "{{ addon_installs.unarchive }}"
+
+# ------------------------------------------------------------------------------------------------
+- name: "Terraform: download addons (git)"
+  git:
+    repo:    "{{ item.repo }}"
+    version: "{{ item.version }}"
+    dest:    "{{ item.dest }}"
+    depth:   1
+    force:   yes
+  with_flattened:
+    - "{{ addon_installs.git }}"
+
+# ------------------------------------------------------------------------------------------------
+- name: "Terraform: download addons (get_url)"
+  get_url:
+    url:    "{{ item.src }}"
+    dest:   "{{ item.dest }}"
+    mode:  'a+rx'
+    # mode:  "{{ item.mode |default('a+rx') }}"
+  with_flattened:
+    - "{{ addon_installs.get_url }}"
+
+# ------------------------------------------------------------------------------------------------

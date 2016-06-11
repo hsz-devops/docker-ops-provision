@@ -16,11 +16,11 @@
 # it seems direct apk seems to work better
 
 # ----------------------------------------------------------------------------------------
-- name: "pip2 upgrade"
-  command: pip2 install --upgrade pip wheel setuptools cffi
+# - name: "pip2 upgrade"
+#   command: pip2 install --upgrade pip wheel setuptools cffi
 
-- name: "pip3 upgrade"
-  command: pip3 install --upgrade pip wheel setuptools cffi
+# - name: "pip3 upgrade"
+#   command: pip3 install --upgrade pip wheel setuptools cffi
 
 # ----------------------------------------------------------------------------------------
 - name: "install dev packages"
@@ -36,7 +36,6 @@
 - name: add packages
   command: apk --update add {{ item }}
   with_flattened:
-    - [ htop ]
     - "{{ os_add_packages }}"
 
 # ----------------------------------------------------------------------------------------
@@ -46,7 +45,6 @@
     state: latest
     executable: pip2
   with_flattened:
-    - []
     - "{{ os_add_pip2 }}"
 
 # ----------------------------------------------------------------------------------------
@@ -56,7 +54,6 @@
     state: latest
     executable: pip3
   with_flattened:
-    - []
     - "{{ os_add_pip3 }}"
 
 # ----------------------------------------------------------------------------------------
@@ -66,6 +63,5 @@
     global: true
     state: latest
   with_flattened:
-    - [ gulp-cli, grunt-cli ]
     - "{{ os_add_npm }}"
 

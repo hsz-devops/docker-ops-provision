@@ -21,8 +21,14 @@ MAINTAINER HighSkillz <webdev@highskillz.com>
 #
 RUN PLAYBOOK=./setup/playbook.yml \
     REQUIREMENTS=./setup/requirements.yml \
-        ansible-playbook-wrapper && \
-    rm -rf /tmp/ops
+        ansible-playbook-wrapper \
+        && \
+    rm -rf \
+      "${HOME}/.ansible" \
+      "${HOME}/.cache" \
+       /var/cache/apk/* \
+       /tmp/ops \
+    ;
 
 # ===========================================================================
 # Run ansible to configure this image

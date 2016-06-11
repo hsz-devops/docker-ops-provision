@@ -10,7 +10,7 @@
     path_tmp_webcache:  "/tmp/ops/_web_cache"
 
   vars_files:
-    - play-var-versions.yml
+    - tools-versions.yml
     - play-packages.yml
 
   tasks:

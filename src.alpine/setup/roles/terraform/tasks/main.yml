@@ -1,0 +1,15 @@
+---
+
+- name: "Terraform: mkdir folders"
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ path_tf_bin }}"
+
+- name: "Terraform: download and extract"
+  unarchive:
+    src:  "https://releases.hashicorp.com/terraform/{{ tf_version }}/terraform_{{ tf_version }}_linux_amd64.zip"
+    dest: "{{ path_tf_bin }}"
+    copy: no
+
