@@ -1,9 +1,10 @@
-# v1.4.0    2016-06-08     webmaster@highskillz.com
+# v1.5.0    2016-06-11     webmaster@highskillz.com
 
-TAG_VERSION=160611f
+TAG_VERSION=160611k
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
+BUILD_CACHE=
 #BUILD_CACHE=--no-cache --force-rm
 
 default:

@@ -96,7 +96,9 @@ RUN \
     \
     echo "===> Adding hosts for convenience..."  && \
     mkdir -p /etc/ansible                        && \
-    echo 'localhost' > /etc/ansible/hosts
+    echo 'localhost' > /etc/ansible/hosts        && \
+    \
+    echo "OK!"
 
 
 COPY ansible-playbook-wrapper /usr/local/bin/
@@ -115,6 +117,13 @@ ONBUILD  RUN  \
               ansible -c local -m setup all
 
 # default command: display Ansible version
-CMD [ "ansible-playbook", "--version" ]
-
-
+CMD \
+    ansible-playbook --version             && \
+    python  --version          | head -n 1 && \
+    python3 --version          | head -n 1 && \
+    pip  --version             | head -n 1 && \
+    pip3 --version             | head -n 1 && \
+    node --version             | head -n 1 && \
+    ruby --version             | head -n 1 && \
+    git  --version             | head -n 1 && \
+    openssl version            | head -n 1

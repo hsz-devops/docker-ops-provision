@@ -1,4 +1,4 @@
-# v1.3.0    2016-06-08     webmaster@highskillz.com
+# v1.5.0    2016-06-11     webmaster@highskillz.com
 
 DH_ID_base=highskillz/ops-base
 
@@ -11,34 +11,41 @@ check-env-base:
 build-base: build-alpine-base build-ubuntu-base
 
 build-alpine-base: check-env-base
-	pushd src.alpine.base ;\
-	docker build $(BUILD_CACHE) -f Dockerfile \
+	pushd src.base ;\
+	docker build $(BUILD_CACHE) -f Dockerfile.alpine \
 			-t $(DH_ID_base):alpine \
-			-t $(DH_ID_base):alpine34 \
 			-t $(DH_ID_base):alpine-${TAG_VERSION} \
+			-t $(DH_ID_base):alpine34 \
 			-t $(DH_ID_base):alpine34-${TAG_VERSION} \
 			. \
-		| tee -a /tmp/docker-ops-provision.makefile.log \
+		| tee /tmp/docker-ops-provision.alpine-base.log \
 		;\
 	popd ;\
 
-build-ubuntu-base: check-env-base
-	pushd src.ubuntu.base ; \
+build-ubuntu-base: build-ubuntu-base-1404 build-ubuntu-base-1604
+
+build-ubuntu-base-1404: check-env-base
+	pushd src.base ; \
 	docker build $(BUILD_CACHE) -f Dockerfile.1404 \
-			-t $(DH_ID_base):ubuntu \
 			-t $(DH_ID_base):ubuntu1404 \
-			-t $(DH_ID_base):ubuntu-${TAG_VERSION} \
 			-t $(DH_ID_base):ubuntu1404-${TAG_VERSION} \
 			. \
-		| tee -a /tmp/docker-ops-provision.makefile.log \
+		| tee /tmp/docker-ops-provision.ubuntu-base-1404.log \
 		;\
+	popd ;\
+
+build-ubuntu-base-1604: check-env-base
+	pushd src.base ; \
 	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
+			-t $(DH_ID_base):ubuntu \
+			-t $(DH_ID_base):ubuntu-${TAG_VERSION} \
 			-t $(DH_ID_base):ubuntu1604 \
 			-t $(DH_ID_base):ubuntu1604-${TAG_VERSION} \
 			. \
-		| tee -a /tmp/docker-ops-provision.makefile.log \
+		| tee /tmp/docker-ops-provision.ubuntu-base-1604.log \
 		;\
 	popd ;\
+
 
 # --------------------------------------------------------------------------
 pull-base: pull-alpine-base pull-ubuntu-base

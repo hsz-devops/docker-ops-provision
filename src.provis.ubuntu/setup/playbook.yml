@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  vars_files:
+    - config.yml
+  tasks:
+    - include: 0-packages.yml
+
+- hosts: localhost
+  roles:
+    - ansible-addons
+    - terraform
+    - terraform-addons
+
+- hosts: localhost
+  tasks:
+    - include: 9-cleanup.yml

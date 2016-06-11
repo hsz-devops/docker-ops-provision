@@ -27,11 +27,11 @@
 
 # ----------------------------------------------------------------------------------------
 
-- name: "pip2 upgrade"
-  command: pip2 install --upgrade pip wheel setuptools
+#- name: "pip2 upgrade"
+#  command: pip2 install --upgrade pip wheel setuptools
 
-- name: "pip3 upgrade"
-  command: pip3 install --upgrade pip wheel setuptools
+#- name: "pip3 upgrade"
+#  command: pip3 install --upgrade pip wheel setuptools
 
 # ----------------------------------------------------------------------------------------
 - name: add packages

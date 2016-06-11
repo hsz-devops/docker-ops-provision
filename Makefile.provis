@@ -1,4 +1,4 @@
-# v1.3.0    2016-06-08     webmaster@highskillz.com
+# v1.5.0    2016-06-11     webmaster@highskillz.com
 
 DH_ID_provis=highskillz/ops-provision
 
@@ -11,35 +11,39 @@ check-env-provis:
 build-provis: build-alpine-provis build-ubuntu-provis
 
 build-alpine-provis: check-env-provis
-	pushd src.alpine ;\
-	docker build $(BUILD_CACHE) -f Dockerfile \
+	pushd src.provis.alpine ;\
+	docker build $(BUILD_CACHE) -f Dockerfile.alpine \
 			-t $(DH_ID_provis):alpine \
 			-t $(DH_ID_provis):alpine34 \
 			-t $(DH_ID_provis):alpine-${TAG_VERSION} \
 			-t $(DH_ID_provis):alpine34-${TAG_VERSION} \
 			. \
-		| tee -a /tmp/docker-ops-provision.makefile.log \
+		| tee /tmp/docker-ops-provision.alpine-provis.log \
 		;\
 	popd ;\
 
-build-ubuntu-provis: check-env-provis
-	pushd src.ubuntu && \
+build-ubuntu-provis: build-ubuntu-provis-1404 build-ubuntu-provis-1604
+
+build-ubuntu-provis-1404: check-env-provis
+	pushd src.provis.ubuntu && \
 	docker build $(BUILD_CACHE) -f Dockerfile.1404 \
 			-t $(DH_ID_provis):ubuntu \
 			-t $(DH_ID_provis):ubuntu1404 \
 			-t $(DH_ID_provis):ubuntu-${TAG_VERSION} \
 			-t $(DH_ID_provis):ubuntu1404-${TAG_VERSION} \
 			. \
-		| tee -a /tmp/docker-ops-provision.makefile.log \
+		| tee /tmp/docker-ops-provision.ubuntu-provis.log \
 		;\
-		&&\
+	popd ;\
+
+build-ubuntu-provis-1604: check-env-provis
+	pushd src.provis.ubuntu && \
 	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
 			-t $(DH_ID_provis):ubuntu1604 \
 			-t $(DH_ID_provis):ubuntu1604-${TAG_VERSION} \
 			. \
-		| tee -a /tmp/docker-ops-provision.makefile.log \
+		| tee /tmp/docker-ops-provision.ubuntu-provis.log \
 		;\
-		&&\
 	popd ;\
 
 # --------------------------------------------------------------------------
