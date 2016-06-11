@@ -17,7 +17,9 @@ build-alpine-provis: check-env-provis
 			-t $(DH_ID_provis):alpine34 \
 			-t $(DH_ID_provis):alpine-${TAG_VERSION} \
 			-t $(DH_ID_provis):alpine34-${TAG_VERSION} \
-			. ;\
+			. \
+		| tee -a /tmp/docker-ops-provision.makefile.log \
+		;\
 	popd ;\
 
 build-ubuntu-provis: check-env-provis
@@ -28,11 +30,15 @@ build-ubuntu-provis: check-env-provis
 			-t $(DH_ID_provis):ubuntu-${TAG_VERSION} \
 			-t $(DH_ID_provis):ubuntu1404-${TAG_VERSION} \
 			. \
+		| tee -a /tmp/docker-ops-provision.makefile.log \
+		;\
 		&&\
 	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
 			-t $(DH_ID_provis):ubuntu1604 \
 			-t $(DH_ID_provis):ubuntu1604-${TAG_VERSION} \
 			. \
+		| tee -a /tmp/docker-ops-provision.makefile.log \
+		;\
 		&&\
 	popd ;\
 

@@ -17,7 +17,9 @@ build-alpine-base: check-env-base
 			-t $(DH_ID_base):alpine34 \
 			-t $(DH_ID_base):alpine-${TAG_VERSION} \
 			-t $(DH_ID_base):alpine34-${TAG_VERSION} \
-			. ;\
+			. \
+		| tee -a /tmp/docker-ops-provision.makefile.log \
+		;\
 	popd ;\
 
 build-ubuntu-base: check-env-base
@@ -28,11 +30,15 @@ build-ubuntu-base: check-env-base
 			-t $(DH_ID_base):ubuntu-${TAG_VERSION} \
 			-t $(DH_ID_base):ubuntu1404-${TAG_VERSION} \
 			. \
+		| tee -a /tmp/docker-ops-provision.makefile.log \
+		;\
 		&&\
 	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
 			-t $(DH_ID_base):ubuntu1604 \
 			-t $(DH_ID_base):ubuntu1604-${TAG_VERSION} \
 			. \
+		| tee -a /tmp/docker-ops-provision.makefile.log \
+		;\
 		&&\
 	popd ;\
 
