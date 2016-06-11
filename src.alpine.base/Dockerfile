@@ -40,6 +40,7 @@ RUN \
             \
             curl \
             wget \
+            file \
             \
             zip \
             xz \

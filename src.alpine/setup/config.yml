@@ -1,6 +1,7 @@
 ---
 os_add_packages:
   - htop
+  - mc
 #  - cifs-utils
 #  - nfs-utils
 #  - awscli
