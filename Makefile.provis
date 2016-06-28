@@ -11,7 +11,7 @@ check-env-provis:
 build-provis: build-alpine-provis build-ubuntu-provis
 
 build-alpine-provis: check-env-provis
-	pushd src.provis.alpine ;\
+	cd $(THIS_DIR)src.provis.alpine ;\
 	docker build $(BUILD_CACHE) -f Dockerfile.alpine \
 			-t $(DH_ID_provis):alpine \
 			-t $(DH_ID_provis):alpine34 \
@@ -25,7 +25,7 @@ build-alpine-provis: check-env-provis
 build-ubuntu-provis: build-ubuntu-provis-1404 build-ubuntu-provis-1604
 
 build-ubuntu-provis-1404: check-env-provis
-	pushd src.provis.ubuntu && \
+	cd $(THIS_DIR)src.provis.ubuntu && \
 	docker build $(BUILD_CACHE) -f Dockerfile.1404 \
 			-t $(DH_ID_provis):ubuntu \
 			-t $(DH_ID_provis):ubuntu1404 \
@@ -37,7 +37,7 @@ build-ubuntu-provis-1404: check-env-provis
 	popd ;\
 
 build-ubuntu-provis-1604: check-env-provis
-	pushd src.provis.ubuntu && \
+	cd $(THIS_DIR)src.provis.ubuntu && \
 	docker build $(BUILD_CACHE) -f Dockerfile.1604 \
 			-t $(DH_ID_provis):ubuntu1604 \
 			-t $(DH_ID_provis):ubuntu1604-${TAG_VERSION} \
