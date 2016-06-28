@@ -20,7 +20,6 @@ build-alpine-provis: check-env-provis
 			. \
 		| tee /tmp/docker-ops-provision.alpine-provis.log \
 		;\
-	popd ;\
 
 build-ubuntu-provis: build-ubuntu-provis-1404 build-ubuntu-provis-1604
 
@@ -34,7 +33,6 @@ build-ubuntu-provis-1404: check-env-provis
 			. \
 		| tee /tmp/docker-ops-provision.ubuntu-provis-1404.log \
 		;\
-	popd ;\
 
 build-ubuntu-provis-1604: check-env-provis
 	cd $(THIS_DIR)src.provis.ubuntu && \
@@ -44,7 +42,6 @@ build-ubuntu-provis-1604: check-env-provis
 			. \
 		| tee /tmp/docker-ops-provision.ubuntu-provis-1604.log \
 		;\
-	popd ;\
 
 # --------------------------------------------------------------------------
 pull-provis: pull-alpine-provis pull-ubuntu-provis
@@ -67,5 +64,14 @@ push-ubuntu-provis: check-env-provis
 	docker push $(DH_ID_provis):ubuntu1604
 
 # --------------------------------------------------------------------------
+shell-provis: shell-alpine-provis shell-ubuntu-provis
+shell-ubuntu-provis: shell-ubuntu1404-provis shell-ubuntu1604-provis
+
 shell-alpine-provis:
 	docker run -it --rm $(DH_ID_provis):alpine bash
+
+shell-ubuntu1404-provis:
+docker run -it --rm $(DH_ID_provis):ubuntu1404 bash
+
+shell-ubuntu1604-provis:
+docker run -it --rm $(DH_ID_provis):ubuntu1604 bash
