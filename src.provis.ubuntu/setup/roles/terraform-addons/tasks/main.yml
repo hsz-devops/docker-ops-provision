@@ -21,8 +21,7 @@
     copy:  no
     # mode:  "{{ item.mode |default('a+rx') }}"
     # copy:  "{{ item.copy |default(no)     }}"
-  with_flattened:
-    - "{{ addon_installs.unarchive }}"
+  with_items: "{{ addon_installs.unarchive }}"
 
 # ------------------------------------------------------------------------------------------------
 - name: "Terraform: download addons (git)"

@@ -3,15 +3,16 @@
 path_tf_bin: "/usr/local/bin"
 
 addon_version:
-    "provision":
-      "ansible":   "0.0.2"           # https://github.com/jonmorehouse/terraform-provisioner-ansible/releases
+    "provisioner":
+      #"ansible":   "0.0.2"           # https://github.com/jonmorehouse/terraform-provisioner-ansible/releases
+      "ansible":   "0.0.2-joaocc-005"
 
 addon_installs:
     git: []
-    unarchive: []
-    get_url:
+    unarchive:
       - name:   "jonmorehouse"
-        src:    "https://github.com/jonmorehouse/terraform-provisioner-ansible/releases/download/{{ addon_version.provision.ansible }}/terraform-provisioner-ansible"
+        src:    "https://github.com/joaocc/jonmorehouse--terraform-provisioner-ansible/releases/download/{{ addon_version.provisioner.ansible }}/terraform-provisioner-ansible_{{ addon_version.provisioner.ansible }}_linux_amd64.tar.gz"
         dest:   "{{ path_tf_bin }}"
         mode:   "a+rx"
+    get_url: []
 

@@ -1,6 +1,6 @@
 # v1.5.0    2016-06-11     webmaster@highskillz.com
 
-TAG_VERSION=160611m
+TAG_VERSION=160629a
 
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
