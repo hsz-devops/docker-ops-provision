@@ -21,4 +21,5 @@ install:
 
 script:
   - sudo make all
-
+  - sudo make shell-base
+  - sudo make shell-provis
