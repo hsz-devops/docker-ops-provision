@@ -2,6 +2,7 @@
 
 TAG_VERSION=160629a
 
+THIS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
 BUILD_CACHE=
