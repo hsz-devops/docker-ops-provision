@@ -64,14 +64,24 @@ push-ubuntu-provis: check-env-provis
 	docker push $(DH_ID_provis):ubuntu1604
 
 # --------------------------------------------------------------------------
-shell-provis: shell-alpine-provis shell-ubuntu-provis
-shell-ubuntu-provis: shell-ubuntu1404-provis shell-ubuntu1604-provis
-
 shell-alpine-provis:
 	docker run -it --rm $(DH_ID_provis):alpine bash
 
 shell-ubuntu1404-provis:
-docker run -it --rm $(DH_ID_provis):ubuntu1404 bash
+	docker run -it --rm $(DH_ID_provis):ubuntu1404 bash
 
 shell-ubuntu1604-provis:
-docker run -it --rm $(DH_ID_provis):ubuntu1604 bash
+	docker run -it --rm $(DH_ID_provis):ubuntu1604 bash
+
+# --------------------------------------------------------------------------
+test-provis: test-alpine-provis test-ubuntu-provis
+test-ubuntu-provis: test-ubuntu1404-provis test-ubuntu1604-provis
+
+test-alpine-provis:
+	docker run -it --rm $(DH_ID_provis):alpine
+
+test-ubuntu1404-provis:
+	docker run -it --rm $(DH_ID_provis):ubuntu1404
+
+test-ubuntu1604-provis:
+	docker run -it --rm $(DH_ID_provis):ubuntu1604
