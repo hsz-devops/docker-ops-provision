@@ -48,6 +48,23 @@ RUN \
             \
             git \
             \
+            mc \
+            mosh \
+            screen \
+            \
+            lsscsi \
+            \
+            htop \
+            atop \
+            sysstat \
+            iftop \
+            lsof \
+            util-linux \
+            mtr \
+            \
+            postgresql-client \
+            mysql-client \
+            \
         && \
     \
     echo "===> Configuring Python and PIP..."  && \

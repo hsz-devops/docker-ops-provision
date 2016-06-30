@@ -50,6 +50,7 @@ RUN \
     echo "===> Adding usefull packages for devops shell-works..."  && \
     apt-get -y install  \
             openssh-client \
+            inetutils-ping \
             \
             bash \
             less \
@@ -58,10 +59,41 @@ RUN \
             curl \
             wget \
             \
+            realpath \
+            virt-what \
+            cpu-checker \
             zip \
             xz-utils \
             \
             git \
+            \
+            mc \
+            mosh \
+            screen \
+            dos2unix \
+            deborphan \
+            \
+            lsscsi \
+            \
+            iotop \
+            htop \
+            atop \
+            sysstat \
+            dstat \
+            iftop \
+            ifstat \
+            bmon \
+            \
+            tcptrack \
+            iptraf \
+            nethogs \
+            lsof \
+            procinfo \
+            util-linux \
+            mtr \
+            \
+            postgresql-client \
+            mysql-client \
             \
     && \
     \
