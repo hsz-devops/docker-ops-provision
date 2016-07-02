@@ -18,15 +18,18 @@ build: build-ubuntu
 
 all: build-alpine build-ubuntu
 
-build-alpine: build-alpine-base build-alpine-provis
+#build-alpine: build-alpine-base build-alpine-provis
+build-alpine: build-alpine-base
 build-ubuntu: build-ubuntu-base build-ubuntu-provis
 
 pull: pull-alpine pull-ubuntu
-pull-alpine: pull-alpine-base  pull-alpine-provis
+#pull-alpine: pull-alpine-base  pull-alpine-provis
+pull-alpine: pull-alpine-base
 pull-ubuntu: pull-ubuntu-base  pull-ubuntu-provis
 
 push: push-alpine push-ubuntu
-push-alpine: push-alpine-base  push-alpine-provis
+#push-alpine: push-alpine-base  push-alpine-provis
+push-alpine: push-alpine-base
 push-ubuntu: push-ubuntu-base  push-ubuntu-provis
 
 # --------------------------------------------------------------------------
