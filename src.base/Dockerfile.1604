@@ -106,6 +106,12 @@ RUN \
     echo Making sure pip is set to python2 && \
     pip --version | grep "python 2\."  && \
     \
+    echo Make sure we can run ansible's docker scripts && \
+    pip install --upgrade \
+            docker-py \
+            docker-compose \
+    && \
+    \
     echo "===> Installing Ansible..."  && \
     apt-get -y install \
             ansible \

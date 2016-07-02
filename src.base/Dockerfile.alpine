@@ -89,6 +89,12 @@ RUN \
         py-cffi \
     && \
     \
+    echo Make sure we can run ansible's docker scripts && \
+    pip install --upgrade \
+            docker-py \
+            docker-compose \
+    && \
+    \
     echo "===> Installing Ansible..."  && \
     apk --update add \
         ansible \
