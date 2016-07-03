@@ -49,5 +49,7 @@ addon_installs:
 
     get_url: []
 
-
+# TODO
+#       https://github.com/larstobi/terraform-ansible
+#       https://github.com/mrcrilly/ansible-inventory-terraform
 

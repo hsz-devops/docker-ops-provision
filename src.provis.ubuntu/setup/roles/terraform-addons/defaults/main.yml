@@ -16,3 +16,51 @@ addon_installs:
         mode:   "a+rx"
     get_url: []
 
+
+
+# TODO:
+#   https://github.com/Shopify/terraform-provider-dns
+#   https://github.com/mcoffin/terraform-provider-localfile
+#   https://github.com/dbcoliveira/terraform-template-provisioner
+#   https://github.com/saymedia/terraform-s3-dir
+#   https://github.com/Yelp/terraform-provider-gitfile
+#   https://github.com/chrusty/terraform-multipart-userdata/tree/master/example
+#   https://github.com/maxmanuylov/terraform-provider-content
+
+#   https://github.com/gosuri/terraform-exec-provider
+#   https://github.com/samsung-cnct/terraform-provider-execute
+#   https://github.com/jweede/terraform-provider-simplescript
+#   https://github.com/jtopjian/terraform-provisioner-makefile
+
+#   https://github.com/redredgroovy/terraform-provider-vault
+#   https://github.com/paperg/terraform-provider-etcdiscovery
+#   https://github.com/delianides/terraform-provider-etcd
+#   https://github.com/paperg/terraform-provider-etcd
+
+#   https://github.com/dindinoh/terraform-provider-static
+
+#   https://github.com/sl1pm4t/terraform-provider-lxd
+#   https://github.com/jtopjian/terraform-provider-lxc
+#   https://github.com/dmacvicar/terraform-provider-libvirt
+#   https://github.com/Banno/terraform-provider-marathon
+#   https://github.com/tuier/terraform-provider-chronos
+#   https://github.com/simonvanderveldt/terraform-provider-kubernetes
+#   https://github.com/jimmycuadra/terraform-provider-vagrant
+#   https://github.com/bengesoff/terraform-provider-virtualbox
+#   https://github.com/btobolaski/terraform-provider-linode
+#   https://github.com/botlink/terraform-provider-deis
+#   https://github.com/bakins/terraform-provider-coreos
+#   https://github.com/roobert/terraform-provider-powerdns
+
+#   https://github.com/tulip/terraform-provider-logentries
+#   https://github.com/russellcardullo/terraform-provider-pingdom
+
+#   https://github.com/cbroglie/terrastache
+#   https://github.com/nadnerb/terraform_exec
+#   https://github.com/MerlinDMC/go-terraform-stateserver
+#   https://github.com/kiasaki/terraform-state-server
+#   https://github.com/oogway/tfstate
+#   https://github.com/paybyphone/terraform-remote-env
+#   https://github.com/pearkes/terraform-plan-decoder
+
+#   https://github.com/dtan4/terraforming
