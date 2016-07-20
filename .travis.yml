@@ -21,5 +21,4 @@ install:
 
 script:
   - sudo make all
-  - sudo make test-base
   - sudo make test-provis

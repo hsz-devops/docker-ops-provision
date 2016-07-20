@@ -1,4 +1,4 @@
-FROM highskillz/ops-base:ubuntu1404
+FROM ez123/ops-base:ubuntu1404
 
 MAINTAINER HighSkillz <webdev@highskillz.com>
 

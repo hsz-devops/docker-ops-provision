@@ -1,4 +1,4 @@
-# v1.5.0    2016-06-11     webmaster@highskillz.com
+# v2.0.0    2016-06-20     webmaster@highskillz.com
 
 TAG_VERSION=160701f
 
@@ -8,9 +8,8 @@ TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 BUILD_CACHE=
 #BUILD_CACHE=--no-cache --force-rm
 
-default:
+default: build
 
-include ./Makefile.base
 include ./Makefile.provis
 
 # --------------------------------------------------------------------------
@@ -19,18 +18,16 @@ build: build-ubuntu
 all: build-alpine build-ubuntu
 
 #build-alpine: build-alpine-base build-alpine-provis
-build-alpine: build-alpine-base
-build-ubuntu: build-ubuntu-base build-ubuntu-provis
+#build-alpine: build-alpine-provis
+build-ubuntu: build-ubuntu-provis
 
 pull: pull-alpine pull-ubuntu
-#pull-alpine: pull-alpine-base  pull-alpine-provis
-pull-alpine: pull-alpine-base
-pull-ubuntu: pull-ubuntu-base  pull-ubuntu-provis
+#pull-alpine: pull-alpine-provis
+pull-ubuntu: pull-ubuntu-provis
 
 push: push-alpine push-ubuntu
-#push-alpine: push-alpine-base  push-alpine-provis
-push-alpine: push-alpine-base
-push-ubuntu: push-ubuntu-base  push-ubuntu-provis
+#push-alpine: push-alpine-provis
+push-ubuntu: push-ubuntu-provis
 
 # --------------------------------------------------------------------------
 clean-junk:
@@ -51,12 +48,3 @@ list:
 	docker ps -a
 
 # --------------------------------------------------------------------------
-
-# # --------------------------------------------------------------------------
-# webcache-copy: webcache-copy-ubuntu webcache-copy-alpine
-
-# webcache-copy-ubuntu:
-# 	cp -a ./_web_cache ./src.ubuntu
-
-# webcache-copy-alpine:
-# 	cp -a ./_web_cache ./src.alpine
