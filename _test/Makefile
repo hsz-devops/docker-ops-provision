@@ -1,6 +1,6 @@
 DH_ID=highskillz/ovh-provision--test
 
-TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
+TIMESTAMP=$(shell date -u +"%Y%m%d_%H%M%S%Z")
 
 build:
 	docker build --no-cache --rm=true -f Dockerfile -t $(DH_ID) .
