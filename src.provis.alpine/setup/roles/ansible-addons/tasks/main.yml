@@ -8,7 +8,7 @@
     - "{{ path_tmp_ansible }}"
     - "{{ path_share_ansible }}"
 
-- command: find /usr/share/ansible
+- command: which ansible
   register: cmd_find
 - debug:
     msg: "{{ cmd_find |to_yaml }}"
