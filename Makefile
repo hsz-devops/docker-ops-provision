@@ -1,6 +1,6 @@
 # v2.0.0    2016-06-20     webmaster@highskillz.com
 
-TAG_VERSION=160910a
+TAG_VERSION=170125c
 
 THIS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 TIMESTAMP=$(shell date -u +"%Y%m%d_%H%M%S%Z")
