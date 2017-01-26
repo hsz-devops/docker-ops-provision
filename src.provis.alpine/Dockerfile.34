@@ -1,4 +1,4 @@
-FROM ez123/ops-base-onb:alpine
+FROM ez123/ops-base-onb:alpine34
 MAINTAINER HighSkillz <webdev@highskillz.com>
 
 # ===========================================================================
