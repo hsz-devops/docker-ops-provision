@@ -5,11 +5,11 @@ path_tmp_ansible:   "/tmp/ops/ansible.src"
 path_tmp_webcache:  "/tmp/ops/_web_cache"
 
 addon_version:
-    "contrib":           "stable-2.1"      # https://github.com/ansible/ansible/tree/devel/contrib
+    "contrib":           "stable-2.2"      # https://github.com/ansible/ansible/tree/devel/contrib
   # "contrib":           "devel"           # https://github.com/ansible/ansible/tree/devel/contrib
 
     "inv_terraform":
-        "adammck":       "0.6.1"           # https://github.com/adammck/terraform-inventory/releases
+        "adammck":       "0.7-pre"        # https://github.com/adammck/terraform-inventory/releases
         "bandwidthcom":  "0.1.8"           # https://github.com/bandwidthcom/terraform-inventory
         "CiscoCloud":    "master"          # https://github.com/CiscoCloud/terraform.py
 

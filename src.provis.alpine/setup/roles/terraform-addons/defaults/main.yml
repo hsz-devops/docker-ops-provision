@@ -6,6 +6,7 @@ addon_version:
     "provisioner":
       #"ansible":   "0.0.2"           # https://github.com/jonmorehouse/terraform-provisioner-ansible/releases
       "ansible":   "0.0.2-joaocc-005"
+      # obsolete... # TBD: replace with https://github.com/ravibhure/terraform-provisioner-ansible
 
 addon_installs:
     git: []
