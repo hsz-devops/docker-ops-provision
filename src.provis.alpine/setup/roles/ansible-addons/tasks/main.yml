@@ -8,10 +8,10 @@
     - "{{ path_tmp_ansible }}"
     - "{{ path_share_ansible }}"
 
-- command: which ansible
+- shell: which ansible
   register: cmd_find
 - debug:
-    msg: "{{ cmd_find |to_yaml }}"
+    msg: "{{ cmd_find }}"
 
 - name: "Ansible: mkdir folders 2"
   file:

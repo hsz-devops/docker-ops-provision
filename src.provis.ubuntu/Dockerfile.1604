@@ -22,7 +22,7 @@ MAINTAINER HighSkillz <webdev@highskillz.com>
 #
 RUN PLAYBOOK=./setup/playbook.yml \
     REQUIREMENTS=./setup/requirements.yml \
-        ansible-playbook-wrapper \
+        ansible-playbook-wrapper -vvv \
         && \
     rm -rf \
       "${HOME}/.ansible" \
