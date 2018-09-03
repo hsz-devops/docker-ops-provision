@@ -10,9 +10,11 @@ os_add_pip2: []
 
 os_add_pip3:
   - awscli
+  - azure-cli
   #- python-openstackclient
 
 os_add_npm:
+  []
   # - gulp-cli
   # - grunt-cli
-  - azure-cli
+  # - azure-cli

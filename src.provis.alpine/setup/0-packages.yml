@@ -26,7 +26,6 @@
 - name: "install dev packages"
   command: apk --update add \
     --virtual build-dependencies \
-          python-dev \
           python3-dev \
           openssl-dev \
           build-base  \

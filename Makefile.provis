@@ -1,4 +1,4 @@
-# v2.0.0    2016-06-20     webmaster@highskillz.com
+# v2.2.0    2018-03-04     webmaster@highskillz.com
 
 DH_ID_provis=ez123/ops-provision
 
@@ -10,15 +10,44 @@ check-env-provis:
 # --------------------------------------------------------------------------
 build-provis: build-alpine-provis build-ubuntu-provis
 
-build-alpine-provis: check-env-provis
+build-alpine-provis: build-alpine-provis-34 build-alpine-provis-37 build-alpine-provis-38 build-alpine-provis-edge
+
+build-alpine-provis-34: check-env-provis
 	cd $(THIS_DIR)src.provis.alpine ;\
 	docker build $(BUILD_CACHE) -f Dockerfile.34 \
-			-t $(DH_ID_provis):alpine \
 			-t $(DH_ID_provis):alpine34 \
-			-t $(DH_ID_provis):alpine-${TAG_VERSION} \
 			-t $(DH_ID_provis):alpine34-${TAG_VERSION} \
 			. \
-		| tee /tmp/docker-ops-provision.alpine-provis.log \
+		| tee /tmp/docker-ops-provision.alpine-provis.34.log \
+		;\
+
+build-alpine-provis-37: check-env-provis
+	cd $(THIS_DIR)src.provis.alpine ;\
+	docker build $(BUILD_CACHE) -f Dockerfile.37 \
+			-t $(DH_ID_provis):alpine37 \
+			-t $(DH_ID_provis):alpine37-${TAG_VERSION} \
+			. \
+		| tee /tmp/docker-ops-provision.alpine-provis.37.log \
+		;\
+
+build-alpine-provis-38: check-env-provis
+	cd $(THIS_DIR)src.provis.alpine ;\
+	docker build $(BUILD_CACHE) -f Dockerfile.38 \
+			-t $(DH_ID_provis):alpine38 \
+			-t $(DH_ID_provis):alpine38-${TAG_VERSION} \
+			. \
+		| tee /tmp/docker-ops-provision.alpine-provis.38.log \
+		;\
+
+build-alpine-provis-edge: check-env-provis
+	cd $(THIS_DIR)src.provis.alpine ;\
+	docker build $(BUILD_CACHE) -f Dockerfile.edge \
+			-t $(DH_ID_provis):alpine \
+			-t $(DH_ID_provis):alpineedge \
+			-t $(DH_ID_provis):alpine-${TAG_VERSION} \
+			-t $(DH_ID_provis):alpineedge-${TAG_VERSION} \
+			. \
+		| tee /tmp/docker-ops-provision.alpine-provis.edge.log \
 		;\
 
 build-ubuntu-provis: build-ubuntu-provis-1404 build-ubuntu-provis-1604
